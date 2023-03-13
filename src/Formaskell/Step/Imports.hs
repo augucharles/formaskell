@@ -91,7 +91,7 @@ defaultOptions = Options
     , alignAs        = 4
     , emptyListAlign = Inherit
     , listPadding    = 4
-    , separateLists  = True
+    , separateLists  = False
     , spaceSurround  = True
     , groupRules     = [defaultGroupRule]
     }
@@ -110,7 +110,7 @@ data EmptyListAlign
 -- sub-groups.
 --
 -- See the documentation for the group_rules setting in
--- data/stylish-haskell.yaml for more details.
+-- data/formaskell.yaml for more details.
 data GroupRule = GroupRule
   { match    :: Pattern
     -- ^ The pattern that determines whether a rule applies to a

@@ -100,12 +100,12 @@ parserInfo = OA.info (OA.helper <*> parseStylishArgs) $
 
 --------------------------------------------------------------------------------
 main :: IO ()
-main = OA.execParser parserInfo >>= stylishHaskell
+main = OA.execParser parserInfo >>= formaskell
 
 
 --------------------------------------------------------------------------------
-stylishHaskell :: StylishArgs -> IO ()
-stylishHaskell sa = do
+formaskell :: StylishArgs -> IO ()
+formaskell sa = do
     unless (saNoUtf8 sa) $
         mapM_ (`IO.hSetEncoding` IO.utf8) [IO.stdin, IO.stdout]
     if saVersion sa then

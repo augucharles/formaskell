@@ -72,7 +72,7 @@ defaultConfig :: Config
 defaultConfig = Config
     { indent        = 4
     , sort          = True
-    , separateLists = True
+    , separateLists = False
     , breakWhere    = Exports
     , openBracket   = NextLine
     }
