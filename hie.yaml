@@ -1,0 +1,6 @@
+cradle:
+  cabal:
+    - path : "src"
+      component : "lib:formaskell"
+    - path : "app"
+      component : "formaskell:exe:formaskell"

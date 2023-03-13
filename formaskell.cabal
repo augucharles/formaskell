@@ -1,0 +1,76 @@
+cabal-version:      2.4
+name:               formaskell
+version:            0.1.0.0
+
+-- A short (one-line) description of the package.
+-- synopsis:
+
+-- A longer description of the package.
+-- description:
+
+-- A URL where users can report bugs.
+-- bug-reports:
+
+license: Apache-2.0
+license-files: LICENSE
+
+-- A copyright notice.
+-- copyright:
+-- category:
+-- extra-source-files: CHANGELOG.md
+
+common lang
+  default-language:     Haskell2010
+  ghc-options:          -Wall
+
+library
+  import: lang
+  exposed-modules:
+    Formaskell
+    Formaskell.Align
+    Formaskell.Block
+    Formaskell.Comments
+    Formaskell.Config
+    Formaskell.Editor
+    Formaskell.GHC
+    Formaskell.Module
+    Formaskell.Ordering
+    Formaskell.Parse
+    Formaskell.Printer
+    Formaskell.Step
+    Formaskell.Step.Imports
+    Formaskell.Step.LanguagePragmas
+    Formaskell.Step.ModuleHeader
+    Formaskell.Step.TrailingWhitespace
+    Formaskell.Util
+    Formaskell.Verbose
+  build-depends:
+    aeson,
+    base,
+    bytestring,
+    Cabal,
+    containers,
+    directory,
+    filepath,
+    file-embed,
+    ghc-lib-parser,
+    ghc-lib-parser-ex,
+    mtl,
+    regex-tdfa,
+    syb,
+    text,
+    HsYAML-aeson,
+    HsYAML,
+  hs-source-dirs: src
+
+
+executable formaskell
+  import: lang
+  main-is: Main.hs
+  hs-source-dirs: app
+  build-depends:
+    base,
+    formaskell,
+    strict,
+    optparse-applicative,
+    bytestring

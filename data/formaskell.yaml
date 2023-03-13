@@ -1,0 +1,244 @@
+# stylish-haskell configuration file
+# ==================================
+
+# The stylish-haskell tool is mainly configured by specifying steps. These steps
+# are a list, so they have an order, and one specific step may appear more than
+# once (if needed). Each file is processed by these steps in the given order.
+steps:
+  # Convert some ASCII sequences to their Unicode equivalents. This is disabled
+  # by default.
+  # - unicode_syntax:
+  #     # In order to make this work, we also need to insert the UnicodeSyntax
+  #     # language pragma. If this flag is set to true, we insert it when it's
+  #     # not already present. You may want to disable it if you configure
+  #     # language extensions using some other method than pragmas. Default:
+  #     # true.
+  #     add_language_pragma: true
+
+  # Format module header
+  #
+  # Currently, this option is not configurable and will format all exports and
+  # module declarations to minimize diffs
+  #
+  - module_header:
+  #     # How many spaces use for indentation in the module header.
+        indent: 4
+  #
+  #     # Should export lists be sorted?  Sorting is only performed within the
+  #     # export section, as delineated by Haddock comments.
+        sort: true
+  #
+  #     # See `separate_lists` for the `imports` step.
+        separate_lists: true
+  #
+  #     # When to break the "where".
+  #     # Possible values:
+  #     # - exports: only break when there is an explicit export list.
+  #     # - single: only break when the export list counts more than one export.
+  #     # - inline: only break when the export list is too long. This is
+  #     #   determined by the `columns` setting. Not applicable when the export
+  #     #   list contains comments as newlines will be required.
+  #     # - always: always break before the "where".
+        break_where: exports
+  #
+  #     # Where to put open bracket
+  #     # Possible values:
+  #     # - same_line: put open bracket on the same line as the module name, before the
+  #     #              comment of the module
+  #     # - next_line: put open bracket on the next line, after module comment
+        open_bracket: next_line
+
+  # Import cleanup
+  - imports:
+      # On which column to align imports list
+      # default: 56 (multiple of 4 to be accessed with tabstop)
+      align_column: 56
+      # padding for "as"
+      # default: 4 (alias aligned with module name)
+      align_as: 4
+
+      # Align empty list (importing instances)
+      #
+      # Empty list align has following options
+      #
+      # - inherit: inherit list_align setting
+      #
+      # - right_after: () is right after the module name:
+      #
+      #   > import Vector.Instances ()
+      #
+      # Default: inherit
+      empty_list_align: inherit
+
+      # List padding determines indentation of import list on lines after import.
+      # This option affects 'long_list_align'.
+      #
+      # Default: 4
+      list_padding: 4
+
+      # Separate lists option affects formatting of import list for type
+      # or class. The only difference is single space between type and list
+      # of constructors, selectors and class functions.
+      #
+      # - true: There is single space between Foldable type and list of it's
+      #   functions.
+      #
+      #   > import Data.Foldable (Foldable (fold, foldl, foldMap))
+      #
+      # - false: There is no space between Foldable type and list of it's
+      #   functions.
+      #
+      #   > import Data.Foldable (Foldable(fold, foldl, foldMap))
+      #
+      # Default: true
+      separate_lists: true
+
+      # Space surround option affects formatting of import lists on a single
+      # line. The only difference is single space after the initial
+      # parenthesis and a single space before the terminal parenthesis.
+      #
+      # - true: There is single space associated with the enclosing
+      #   parenthesis.
+      #
+      #   > import Data.Foo ( foo )
+      #
+      # - false: There is no space associated with the enclosing parenthesis
+      #
+      #   > import Data.Foo (foo)
+      #
+      # Default: true
+      space_surround: true
+
+      # A list of rules specifying how to group modules and how to
+      # order the groups.
+      #
+      # Each rule has a match field; the rule only applies to module
+      # names matched by this pattern. Patterns are POSIX extended
+      # regular expressions; see the documentation of Text.Regex.TDFA
+      # for details:
+      # https://hackage.haskell.org/package/regex-tdfa-1.3.1.2/docs/Text-Regex-TDFA.html
+      #
+      # Rules are processed in order, so only the *first* rule that
+      # matches a specific module will apply. Any module names that do
+      # not match a single rule will be put into a single group at the
+      # end of the import block.
+      #
+      # Example: group MyApp modules first, with everything else in
+      # one group at the end.
+      #
+      #  group_rules:
+      #    - match: "^MyApp\\>"
+      #
+      #  > import MyApp
+      #  > import MyApp.Foo
+      #  >
+      #  > import Control.Monad
+      #  > import MyApps
+      #  > import Test.MyApp
+      #
+      # A rule can also optionally have a sub_group pattern. Imports
+      # that match the rule will be broken up into further groups by
+      # the part of the module name matched by the sub_group pattern.
+      #
+      # Example: group MyApp modules first, then everything else
+      # sub-grouped by the first part of the module name.
+      #
+      #  group_rules:
+      #    - match: "^MyApp\\>"
+      #    - match: "."
+      #      sub_group: "^[^.]+"
+      #
+      #  > import MyApp
+      #  > import MyApp.Foo
+      #  >
+      #  > import Control.Applicative
+      #  > import Control.Monad
+      #  >
+      #  > import Data.Map
+      #
+      # A pattern only needs to match part of the module name, which
+      # could be in the middle. You can use ^pattern to anchor to the
+      # beginning of the module name, pattern$ to anchor to the end
+      # and ^pattern$ to force a full match. Example:
+      #
+      #  - "Test\\." would match "Test.Foo" and "Foo.Test.Lib"
+      #  - "^Test\\." would match "Test.Foo" but not "Foo.Test.Lib"
+      #  - "\\.Test$" would match "Foo.Test" but not "Foo.Test.Lib"
+      #  - "^Test$" would *only* match "Test"
+      #
+      # You can use \\< and \\> to anchor against the beginning and
+      # end of words, respectively. For example:
+      #
+      #  - "^Test\\." would match "Test.Foo" but not "Test" or "Tests"
+      #  - "^Test\\>" would match "Test.Foo" and "Test", but not
+      #    "Tests"
+      #
+      # The default is a single rule that matches everything and
+      # sub-groups based on the first component of the module name.
+      #
+      # Default: [{ "match" : ".*", "sub_group": "^[^.]+" }]
+      group_rules:
+        - match: ".*"
+          sub_group: "^[^.]+"
+
+  # Language pragmas
+  - language_pragmas:
+      # We can generate different styles of language pragma lists.
+      #
+      # - vertical: Vertical-spaced language pragmas, one per line.
+      #
+      # - compact: A more compact style.
+      #
+      # Default: vertical.
+      style: vertical
+
+      # Align affects alignment of closing pragma brackets.
+      #
+      # - true: Brackets are aligned in same column.
+      #
+      # - false: Brackets are not aligned together. There is only one space
+      #   between actual import and closing bracket.
+      #
+      # Default: true
+      align: true
+      align_column: 56
+
+      # Language prefix to be used for pragma declaration, this allows you to
+      # use other options non case-sensitive like "language" or "Language".
+      # If a non correct String is provided, it will default to: LANGUAGE.
+      # /!\ disabled in favor of multi-pragma support
+      #language_prefix: LANGUAGE
+
+  # Replace tabs by spaces. This is disabled by default.
+  # - tabs:
+  #     # Number of spaces to use for each tab. Default: 8, as specified by the
+  #     # Haskell report.
+  #     spaces: 8
+
+  # Remove trailing whitespace
+  - trailing_whitespace: {}
+
+  # Squash multiple spaces between the left and right hand sides of some
+  # elements into single spaces. Basically, this undoes the effect of
+  # simple_align but is a bit less conservative.
+  # - squash: {}
+
+# A common setting is the number of columns (parts of) code will be wrapped
+# to. Different steps take this into account.
+#
+# Set this to null to disable all line wrapping.
+#
+# Default: 120.
+columns: 120
+
+# By default, line endings are converted according to the OS. You can override
+# preferred format here.
+#
+# - native: Native newline format. CRLF on Windows, LF on other OSes.
+#
+# - lf: Convert to LF ("\n").
+#
+# - crlf: Convert to CRLF ("\r\n").
+#
+# Default: native.
+newline: native
