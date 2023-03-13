@@ -30,7 +30,7 @@ import           Data.List                         (sortBy)
 import           Data.List.NonEmpty                (NonEmpty (..))
 import qualified Data.List.NonEmpty                as NonEmpty
 import qualified Data.Map                          as Map
-import           Data.Maybe                        (fromMaybe, isJust)
+import           Data.Maybe                        (fromMaybe)
 import qualified Data.Set                          as Set
 import qualified Data.Text                         as T
 import qualified GHC.Data.FastString               as GHC
@@ -251,21 +251,27 @@ printQualified Options{..} stats ldecl = do
           then module_ <* space <* putText "qualified"
           else module_
 
-    -- put "as" on new line
+    let somethingFollows =
+                isHiding decl ||
+                not (null $ GHC.ideclHiding decl)
+
+    -- put "as" on new line if there is an explicit import list, otherwise as follows module name
     case GHC.ideclAs decl of
       Nothing -> pure ()
-      Just lname  -> do
-        newline >> putText (replicate alignAs ' ') >> putText "as" >> space
-        putText . GHC.moduleNameString $ GHC.unLoc lname
+      Just lname  -> (
+        if somethingFollows then
+          (do
+            newline >> putText (replicate alignAs ' ') >> putText "as" >> space
+            putText . GHC.moduleNameString $ GHC.unLoc lname
+          )
+        else
+          space >> putText "as" >> space >> putText (GHC.moduleNameString $ GHC.unLoc lname))
 
     when (isHiding decl) (space >> putText "hiding")
 
     afterAliasPosition <- length <$> getCurrentLine
 
     -- Only print spaces if something follows.
-    let somethingFollows =
-                isJust (GHC.ideclAs decl) || isHiding decl ||
-                not (null $ GHC.ideclHiding decl)
     when somethingFollows $ putText $ replicate
         (alignColumn - afterAliasPosition - 2)
         ' '
