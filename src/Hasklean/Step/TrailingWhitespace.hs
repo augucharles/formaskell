@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
-module Formaskell.Step.TrailingWhitespace
+module Hasklean.Step.TrailingWhitespace
     ( step
     ) where
 
@@ -9,7 +9,7 @@ import           Data.Char                     (isSpace)
 
 
 --------------------------------------------------------------------------------
-import Formaskell.Step ( Step, makeStep )
+import Hasklean.Step ( Step, makeStep )
 
 
 --------------------------------------------------------------------------------

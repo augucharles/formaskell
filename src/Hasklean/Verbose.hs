@@ -1,20 +1,20 @@
 --------------------------------------------------------------------------------
-module Formaskell.Step
-    ( Lines
-    , Step (..)
-    , makeStep
+module Hasklean.Verbose
+    ( Verbose
+    , makeVerbose
     ) where
 
 
 --------------------------------------------------------------------------------
-import Formaskell.Module ( Module, Lines )
+import           System.IO (hPutStrLn, stderr)
+
 
 --------------------------------------------------------------------------------
-data Step = Step
-    { stepName   :: String
-    , stepFilter :: Lines -> Module -> Lines
-    }
+type Verbose = String -> IO ()
+
 
 --------------------------------------------------------------------------------
-makeStep :: String -> (Lines -> Module -> Lines) -> Step
-makeStep = Step
+makeVerbose :: Bool -> Verbose
+makeVerbose verbose
+    | verbose   = hPutStrLn stderr
+    | otherwise = const $ return ()

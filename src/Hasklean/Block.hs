@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Redundant if" #-}
-module Formaskell.Block
+module Hasklean.Block
     ( Block (..)
     , LineBlock
     , realSrcSpanToLineBlock

@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE LambdaCase    #-}
 {-# LANGUAGE PatternGuards #-}
-module Formaskell.Util
+module Hasklean.Util
     ( indent
     , padRight
     , everything
@@ -42,8 +42,8 @@ import qualified GHC.Utils.Outputable          as GHC
 
 
 --------------------------------------------------------------------------------
-import           Formaskell.GHC  (showOutputable)
-import Formaskell.Module ( Lines )
+import           Hasklean.GHC  (showOutputable)
+import Hasklean.Module ( Lines )
 
 
 --------------------------------------------------------------------------------

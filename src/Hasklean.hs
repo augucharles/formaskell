@@ -2,14 +2,14 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use <&>" #-}
 --------------------------------------------------------------------------------
-module Formaskell
+module Hasklean
     ( -- * Run
       runSteps
       -- ** Helpers
     , findHaskellFiles
     , stepName
       -- * Config
-    , module Formaskell.Config
+    , module Hasklean.Config
       -- * Misc
     , makeVerbose
     , Step
@@ -23,10 +23,10 @@ import           System.Directory                                 (doesDirectory
                                                                    listDirectory)
 import           System.FilePath                                  (takeExtension,
                                                                    (</>))
-import           Formaskell.Config
-import           Formaskell.Parse                                 ( parseModule )
-import           Formaskell.Step                                  ( Lines, Step(Step, stepName) )
-import Formaskell.Verbose ( makeVerbose )
+import           Hasklean.Config
+import           Hasklean.Parse                                 ( parseModule )
+import           Hasklean.Step                                  ( Lines, Step(Step, stepName) )
+import Hasklean.Verbose ( makeVerbose )
 
 
 --------------------------------------------------------------------------------

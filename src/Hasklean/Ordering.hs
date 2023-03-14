@@ -3,7 +3,7 @@
 -- and maybe more in the future.  This module provides consistent sorting
 -- utilities.
 {-# LANGUAGE LambdaCase #-}
-module Formaskell.Ordering
+module Hasklean.Ordering
     ( compareImports
     , compareLIE
     , compareWrappedName
@@ -25,7 +25,7 @@ import           GHC.Types.Name.Reader        (RdrName)
 import           GHC.Types.SrcLoc             (unLoc)
 import           GHC.Utils.Outputable         (Outputable)
 import qualified GHC.Utils.Outputable         as GHC
-import           Formaskell.GHC (showOutputable)
+import           Hasklean.GHC (showOutputable)
 
 
 --------------------------------------------------------------------------------

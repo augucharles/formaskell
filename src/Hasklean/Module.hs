@@ -3,7 +3,7 @@
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE StandaloneDeriving         #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
-module Formaskell.Module
+module Hasklean.Module
   ( -- * Data types
     Module
   , Comments (..)
@@ -43,7 +43,7 @@ import qualified GHC.Unit.Module.Name         as GHC
 
 
 --------------------------------------------------------------------------------
-import Formaskell.GHC ( showOutputable, epAnnComments )
+import Hasklean.GHC ( showOutputable, epAnnComments )
 
 
 --------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ moduleImportGroups =
   where
     err = error "moduleImportGroups: import without soure span"
 
--- The same logic as 'Formaskell.Module.moduleImportGroups'.
+-- The same logic as 'Hasklean.Module.moduleImportGroups'.
 groupByLine :: (a -> RealSrcSpan) -> [a] -> [NonEmpty a]
 groupByLine f = go [] Nothing
   where

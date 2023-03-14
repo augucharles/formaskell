@@ -9,7 +9,7 @@
 {-# HLINT ignore "Use list comprehension" #-}
 {-# HLINT ignore "Use record patterns" #-}
 {-# HLINT ignore "Use null" #-}
-module Formaskell.Printer
+module Hasklean.Printer
   ( Printer(..)
   , PrinterConfig(..)
   , PrinterState(..)
@@ -70,8 +70,8 @@ import           Control.Monad.State             (MonadState, State, get, gets,
 import           Data.List                       (foldl')
 
 --------------------------------------------------------------------------------
-import           Formaskell.GHC    (showOutputable)
-import           Formaskell.Module (Lines)
+import           Hasklean.GHC    (showOutputable)
+import           Hasklean.Module (Lines)
 
 -- | Shorthand for 'Printer' monad
 type P = Printer

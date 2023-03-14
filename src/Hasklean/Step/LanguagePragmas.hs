@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE BlockArguments    #-}
 {-# LANGUAGE OverloadedStrings #-}
-module Formaskell.Step.LanguagePragmas
+module Hasklean.Step.LanguagePragmas
     ( Style (..)
     , step
     ) where
@@ -17,12 +17,12 @@ import qualified GHC.Types.SrcLoc                as GHC
 
 
 --------------------------------------------------------------------------------
-import Formaskell.Block ( Block(Block), groupAdjacent )
-import qualified Formaskell.Editor as Editor
-import Formaskell.Module
+import Hasklean.Block ( Block(Block), groupAdjacent )
+import qualified Hasklean.Editor as Editor
+import Hasklean.Module
     ( Module, Lines, unsafeModuleAllPragmas )
-import Formaskell.Step ( Step, makeStep )
-import Formaskell.Util ( padRight, wrapMaybe )
+import Hasklean.Step ( Step, makeStep )
+import Hasklean.Util ( padRight, wrapMaybe )
 
 
 --------------------------------------------------------------------------------

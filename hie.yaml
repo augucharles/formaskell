@@ -1,6 +1,6 @@
 cradle:
   cabal:
     - path : "src"
-      component : "lib:formaskell"
+      component : "lib:hasklean"
     - path : "app"
-      component : "formaskell:exe:formaskell"
+      component : "hasklean:exe:hasklean"

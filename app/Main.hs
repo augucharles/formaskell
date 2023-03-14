@@ -19,7 +19,7 @@ import           Data.Monoid              ((<>))
 #endif
 
 --------------------------------------------------------------------------------
-import Formaskell
+import Hasklean
     ( makeVerbose,
       Step(stepName),
       defaultConfigBytes,
@@ -87,29 +87,29 @@ parseStylishArgs = StylishArgs
 
 
 --------------------------------------------------------------------------------
-formaskellVersion :: String
-formaskellVersion = "formaskell version"
+haskleanVersion :: String
+haskleanVersion = "hasklean version"
 
 
 --------------------------------------------------------------------------------
 parserInfo :: OA.ParserInfo StylishArgs
 parserInfo = OA.info (OA.helper <*> parseStylishArgs) $
     OA.fullDesc <>
-    OA.header formaskellVersion
+    OA.header haskleanVersion
 
 
 --------------------------------------------------------------------------------
 main :: IO ()
-main = OA.execParser parserInfo >>= formaskell
+main = OA.execParser parserInfo >>= hasklean
 
 
 --------------------------------------------------------------------------------
-formaskell :: StylishArgs -> IO ()
-formaskell sa = do
+hasklean :: StylishArgs -> IO ()
+hasklean sa = do
     unless (saNoUtf8 sa) $
         mapM_ (`IO.hSetEncoding` IO.utf8) [IO.stdin, IO.stdout]
     if saVersion sa then
-        putStrLn formaskellVersion
+        putStrLn haskleanVersion
 
         else if saDefaults sa then do
             verbose' "Dumping embedded config..."

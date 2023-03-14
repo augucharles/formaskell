@@ -2,7 +2,7 @@
 -- | Utilities for assocgating comments with things in a list.
 {-# LANGUAGE RecordWildCards     #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-module Formaskell.Comments
+module Hasklean.Comments
     ( CommentGroup (..)
     , commentGroups
     , commentGroupHasComments
@@ -20,9 +20,9 @@ import qualified GHC.Utils.Outputable           as GHC
 
 
 --------------------------------------------------------------------------------
-import Formaskell.Block
+import Hasklean.Block
     ( LineBlock, Block(blockStart), realSrcSpanToLineBlock, adjacent )
-import Formaskell.GHC ( showOutputable )
+import Hasklean.GHC ( showOutputable )
 
 
 --------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 {-# LANGUAGE BlockArguments  #-}
 {-# LANGUAGE LambdaCase      #-}
 {-# LANGUAGE RecordWildCards #-}
-module Formaskell.Step.ModuleHeader
+module Hasklean.Step.ModuleHeader
   ( Config (..)
   , BreakWhere (..)
   , OpenBracket (..)
@@ -22,16 +22,16 @@ import qualified GHC.Unit.Module.Name                  as GHC
 
 
 --------------------------------------------------------------------------------
-import Formaskell.Comments
+import Hasklean.Comments
     ( CommentGroup(..),
       commentGroups,
       commentGroupHasComments,
       commentGroupSort )
-import qualified Formaskell.Editor       as Editor
-import Formaskell.GHC ( showOutputable, epAnnComments )
-import Formaskell.Module ( Module, Lines )
-import Formaskell.Ordering ( compareLIE )
-import Formaskell.Printer
+import qualified Hasklean.Editor       as Editor
+import Hasklean.GHC ( showOutputable, epAnnComments )
+import Hasklean.Module ( Module, Lines )
+import Hasklean.Ordering ( compareLIE )
+import Hasklean.Printer
     ( PrinterConfig(PrinterConfig),
       P,
       runPrinter_,
@@ -43,9 +43,9 @@ import Formaskell.Printer
       spaces,
       comma,
       wrapping )
-import Formaskell.Step ( Step, makeStep )
-import qualified Formaskell.Step.Imports as Imports
-import           Formaskell.Util         (flagEnds)
+import Hasklean.Step ( Step, makeStep )
+import qualified Hasklean.Step.Imports as Imports
+import           Hasklean.Util         (flagEnds)
 
 
 data Config = Config

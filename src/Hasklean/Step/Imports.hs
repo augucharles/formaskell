@@ -7,7 +7,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use record patterns" #-}
-module Formaskell.Step.Imports
+module Hasklean.Step.Imports
   ( Options (..)
   , defaultOptions
   , EmptyListAlign (..)
@@ -46,18 +46,18 @@ import           Text.Regex.TDFA                   (Regex)
 import           Text.Regex.TDFA.ReadRegex         (parseRegex)
 
 --------------------------------------------------------------------------------
-import Formaskell.Block ( Block(Block) )
-import qualified Formaskell.Editor   as Editor
-import Formaskell.Module
+import Hasklean.Block ( Block(Block) )
+import qualified Hasklean.Editor   as Editor
+import Hasklean.Module
     ( canMergeImport,
       importModuleName,
       mergeModuleImport,
       moduleImportGroups,
       Lines,
       Module )
-import Formaskell.Ordering
+import Hasklean.Ordering
     ( compareImports, compareLIE, compareWrappedName )
-import Formaskell.Printer
+import Hasklean.Printer
     ( comma,
       getCurrentLine,
       modifyCurrentLine,
@@ -71,8 +71,8 @@ import Formaskell.Printer
       wrapping,
       P,
       PrinterConfig(PrinterConfig) )
-import Formaskell.Step ( makeStep, Step )
-import Formaskell.Util ( flagEnds, trimRight )
+import Hasklean.Step ( makeStep, Step )
+import Hasklean.Util ( flagEnds, trimRight )
 
 --------------------------------------------------------------------------------
 data Options = Options
@@ -110,7 +110,7 @@ data EmptyListAlign
 -- sub-groups.
 --
 -- See the documentation for the group_rules setting in
--- data/formaskell.yaml for more details.
+-- data/hasklean.yaml for more details.
 data GroupRule = GroupRule
   { match    :: Pattern
     -- ^ The pattern that determines whether a rule applies to a
@@ -363,11 +363,11 @@ printImport separateLists (GHC.IEThingWith _ name wildcard imps) = do
     parenthesize $
       sep (comma >> space) (ellipsis <> fmap printIeWrappedName imps)
 printImport _ (GHC.IEGroup _ _ _ ) =
-    error "Formaskell.Printer.Imports.printImportExport: unhandled case 'IEGroup'"
+    error "Hasklean.Printer.Imports.printImportExport: unhandled case 'IEGroup'"
 printImport _ (GHC.IEDoc _ _) =
-    error "Formaskell.Printer.Imports.printImportExport: unhandled case 'IEDoc'"
+    error "Hasklean.Printer.Imports.printImportExport: unhandled case 'IEDoc'"
 printImport _ (GHC.IEDocNamed _ _) =
-    error "Formaskell.Printer.Imports.printImportExport: unhandled case 'IEDocNamed'"
+    error "Hasklean.Printer.Imports.printImportExport: unhandled case 'IEDocNamed'"
 
 
 --------------------------------------------------------------------------------

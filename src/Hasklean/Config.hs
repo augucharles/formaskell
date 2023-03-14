@@ -5,7 +5,7 @@
 {-# LANGUAGE TemplateHaskell   #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Redundant <$>" #-}
-module Formaskell.Config
+module Hasklean.Config
     ( Extensions
     , Config (..)
     , ExitCodeBehavior (..)
@@ -34,12 +34,12 @@ import qualified System.IO                                        as IO (Newline
 
 
 --------------------------------------------------------------------------------
-import Formaskell.Step ( Step )
-import qualified Formaskell.Step.Imports            as Imports
-import qualified Formaskell.Step.LanguagePragmas    as LanguagePragmas
-import qualified Formaskell.Step.ModuleHeader       as ModuleHeader
-import qualified Formaskell.Step.TrailingWhitespace as TrailingWhitespace
-import Formaskell.Verbose ( Verbose )
+import Hasklean.Step ( Step )
+import qualified Hasklean.Step.Imports            as Imports
+import qualified Hasklean.Step.LanguagePragmas    as LanguagePragmas
+import qualified Hasklean.Step.ModuleHeader       as ModuleHeader
+import qualified Hasklean.Step.TrailingWhitespace as TrailingWhitespace
+import Hasklean.Verbose ( Verbose )
 import Data.Char (toLower)
 
 
@@ -73,7 +73,7 @@ instance FromJSON Config where
 
 --------------------------------------------------------------------------------
 defaultConfigBytes :: B.ByteString
-defaultConfigBytes = $(FileEmbed.embedFile "data/formaskell.yaml")
+defaultConfigBytes = $(FileEmbed.embedFile "data/hasklean.yaml")
 
 
 --------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ loadConfig verbose userSpecified = do
     verbose $ "Loading configuration at " ++ fromMaybe "<embedded>" mbFp
     bytes <- maybe (return defaultConfigBytes) B.readFile mbFp
     case decode1Strict bytes of
-        Left (pos, err)     -> error $ prettyPosWithSource pos (fromStrict bytes) ("Formaskell.Config.loadConfig: " ++ err)
+        Left (pos, err)     -> error $ prettyPosWithSource pos (fromStrict bytes) ("Hasklean.Config.loadConfig: " ++ err)
         Right config -> do
           return $ config
             { configLanguageExtensions = nub $

@@ -10,8 +10,8 @@
 --
 -- when this is evaluated, we take into account that 4th line will become the
 -- 3rd line before it needs changing.
-module Formaskell.Editor
-    ( module Formaskell.Block
+module Hasklean.Editor
+    ( module Hasklean.Block
 
     , Edits
     , apply
@@ -31,7 +31,7 @@ import qualified GHC.Types.SrcLoc               as GHC
 
 
 --------------------------------------------------------------------------------
-import           Formaskell.Block
+import           Hasklean.Block
 
 
 --------------------------------------------------------------------------------
@@ -169,7 +169,7 @@ conflicts (Edits edits) = M.toAscList edits >>= uncurry checkChanges
 --------------------------------------------------------------------------------
 apply :: Edits -> [String] -> [String]
 apply (Edits edits) = case conflicts (Edits edits) of
-    c : _ -> error $ "Formaskell.Editor: " ++ prettyConflict c
+    c : _ -> error $ "Hasklean.Editor: " ++ prettyConflict c
     _     -> go 1 (editsFor 1)
   where
     editsFor i = fromMaybe [] $ M.lookup i edits

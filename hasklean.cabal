@@ -1,5 +1,5 @@
 cabal-version:      2.4
-name:               formaskell
+name:               hasklean
 version:            0.1.0.0
 
 -- A short (one-line) description of the package.
@@ -26,24 +26,24 @@ common lang
 library
   import: lang
   exposed-modules:
-    Formaskell
-    Formaskell.Align
-    Formaskell.Block
-    Formaskell.Comments
-    Formaskell.Config
-    Formaskell.Editor
-    Formaskell.GHC
-    Formaskell.Module
-    Formaskell.Ordering
-    Formaskell.Parse
-    Formaskell.Printer
-    Formaskell.Step
-    Formaskell.Step.Imports
-    Formaskell.Step.LanguagePragmas
-    Formaskell.Step.ModuleHeader
-    Formaskell.Step.TrailingWhitespace
-    Formaskell.Util
-    Formaskell.Verbose
+    Hasklean
+    Hasklean.Align
+    Hasklean.Block
+    Hasklean.Comments
+    Hasklean.Config
+    Hasklean.Editor
+    Hasklean.GHC
+    Hasklean.Module
+    Hasklean.Ordering
+    Hasklean.Parse
+    Hasklean.Printer
+    Hasklean.Step
+    Hasklean.Step.Imports
+    Hasklean.Step.LanguagePragmas
+    Hasklean.Step.ModuleHeader
+    Hasklean.Step.TrailingWhitespace
+    Hasklean.Util
+    Hasklean.Verbose
   build-depends:
     aeson,
     base,
@@ -64,13 +64,13 @@ library
   hs-source-dirs: src
 
 
-executable formaskell
+executable hasklean
   import: lang
   main-is: Main.hs
   hs-source-dirs: app
   build-depends:
     base,
-    formaskell,
+    hasklean,
     strict,
     optparse-applicative,
     bytestring

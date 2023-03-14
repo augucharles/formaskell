@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
-module Formaskell.Parse
+module Hasklean.Parse
   ( parseModule
   ) where
 
@@ -27,8 +27,8 @@ import qualified Language.Haskell.GhclibParserEx.GHC.Parser         as GHCEx
 
 
 --------------------------------------------------------------------------------
-import Formaskell.GHC ( baseDynFlags )
-import Formaskell.Module ( Module )
+import Hasklean.GHC ( baseDynFlags )
+import Hasklean.Module ( Module )
 
 
 --------------------------------------------------------------------------------

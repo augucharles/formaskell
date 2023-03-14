@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 -- | This module is useful for aligning things.
-module Formaskell.Align
+module Hasklean.Align
     ( Alignable (..)
     , align
     ) where
@@ -12,8 +12,8 @@ import qualified GHC.Types.SrcLoc                as GHC
 
 
 --------------------------------------------------------------------------------
-import qualified Formaskell.Editor as Editor
-import Formaskell.Util ( padRight, trimLeft, trimRight )
+import qualified Hasklean.Editor as Editor
+import Hasklean.Util ( padRight, trimLeft, trimRight )
 
 
 --------------------------------------------------------------------------------

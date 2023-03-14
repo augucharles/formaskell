@@ -2,7 +2,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wno-missing-fields #-}
 -- | Utility functions for working with the GHC AST
-module Formaskell.GHC
+module Hasklean.GHC
   (
    -- * Standard settings
     baseDynFlags
