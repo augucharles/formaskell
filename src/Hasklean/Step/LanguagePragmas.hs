@@ -1,28 +1,28 @@
 --------------------------------------------------------------------------------
-{-# LANGUAGE BlockArguments    #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE BlockArguments                            #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# LANGUAGE OverloadedStrings                         #-}
 module Hasklean.Step.LanguagePragmas
-    ( Style (..)
+    ( Style(..)
     , step
     ) where
 
 
 --------------------------------------------------------------------------------
-import           Data.List.NonEmpty              (NonEmpty, fromList, toList)
-import qualified Data.Set                        as S
+import Data.List.NonEmpty                              ( NonEmpty, fromList, toList )
+import Data.Set qualified as S
 
 
 --------------------------------------------------------------------------------
-import qualified GHC.Types.SrcLoc                as GHC
+import GHC.Types.SrcLoc qualified as GHC
 
 
 --------------------------------------------------------------------------------
-import Hasklean.Block ( Block(Block), groupAdjacent )
-import qualified Hasklean.Editor as Editor
-import Hasklean.Module
-    ( Module, Lines, unsafeModuleAllPragmas )
-import Hasklean.Step ( Step, makeStep )
-import Hasklean.Util ( padRight, wrapMaybe )
+import Hasklean.Block                                  ( Block(Block), groupAdjacent )
+import Hasklean.Editor qualified as Editor
+import Hasklean.Module                                 ( Lines, Module, unsafeModuleAllPragmas )
+import Hasklean.Step                                   ( Step, makeStep )
+import Hasklean.Util                                   ( padRight, wrapMaybe )
 
 
 --------------------------------------------------------------------------------

@@ -5,11 +5,11 @@ module Hasklean.Step.TrailingWhitespace
 
 
 --------------------------------------------------------------------------------
-import           Data.Char                     (isSpace)
+import Data.Char                                       ( isSpace )
 
 
 --------------------------------------------------------------------------------
-import Hasklean.Step ( Step, makeStep )
+import Hasklean.Step                                   ( Step, makeStep )
 
 
 --------------------------------------------------------------------------------

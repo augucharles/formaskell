@@ -1,19 +1,20 @@
 --------------------------------------------------------------------------------
 -- | This module is useful for aligning things.
+{-# LANGUAGE ImportQualifiedPost                       #-}
 module Hasklean.Align
-    ( Alignable (..)
+    ( Alignable(..)
     , align
     ) where
 
 
 --------------------------------------------------------------------------------
-import           Data.List                       (nub)
-import qualified GHC.Types.SrcLoc                as GHC
+import Data.List                                       ( nub )
+import GHC.Types.SrcLoc qualified as GHC
 
 
 --------------------------------------------------------------------------------
-import qualified Hasklean.Editor as Editor
-import Hasklean.Util ( padRight, trimLeft, trimRight )
+import Hasklean.Editor qualified as Editor
+import Hasklean.Util                                   ( padRight, trimLeft, trimRight )
 
 
 --------------------------------------------------------------------------------

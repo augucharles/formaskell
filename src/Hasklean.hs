@@ -1,6 +1,6 @@
-{-# LANGUAGE LambdaCase #-}
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Use <&>" #-}
+{-# HLINT ignore "Use <&>"                             #-}
+{-# LANGUAGE LambdaCase                                #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas              #-}
 --------------------------------------------------------------------------------
 module Hasklean
     ( -- * Run
@@ -11,22 +11,19 @@ module Hasklean
       -- * Config
     , module Hasklean.Config
       -- * Misc
-    , makeVerbose
     , Step
+    , makeVerbose
     ) where
 
 
 --------------------------------------------------------------------------------
-import           Control.Monad                                    (foldM)
-import           System.Directory                                 (doesDirectoryExist,
-                                                                   doesFileExist,
-                                                                   listDirectory)
-import           System.FilePath                                  (takeExtension,
-                                                                   (</>))
-import           Hasklean.Config
-import           Hasklean.Parse                                 ( parseModule )
-import           Hasklean.Step                                  ( Lines, Step(Step, stepName) )
-import Hasklean.Verbose ( makeVerbose )
+import Control.Monad                                   ( foldM )
+import Hasklean.Config
+import Hasklean.Parse                                  ( parseModule )
+import Hasklean.Step                                   ( Lines, Step(Step, stepName) )
+import Hasklean.Verbose                                ( makeVerbose )
+import System.Directory                                ( doesDirectoryExist, doesFileExist, listDirectory )
+import System.FilePath                                 ( takeExtension, (</>) )
 
 
 --------------------------------------------------------------------------------

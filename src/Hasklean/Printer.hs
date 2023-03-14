@@ -1,77 +1,72 @@
-{-# LANGUAGE BlockArguments             #-}
-{-# LANGUAGE DerivingStrategies         #-}
-{-# LANGUAGE DoAndIfThenElse            #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE LambdaCase                 #-}
-{-# LANGUAGE RecordWildCards            #-}
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Use newtype instead of data" #-}
-{-# HLINT ignore "Use list comprehension" #-}
-{-# HLINT ignore "Use record patterns" #-}
-{-# HLINT ignore "Use null" #-}
+{-# HLINT ignore "Use list comprehension"              #-}
+{-# HLINT ignore "Use newtype instead of data"         #-}
+{-# HLINT ignore "Use null"                            #-}
+{-# HLINT ignore "Use record patterns"                 #-}
+{-# LANGUAGE BlockArguments                            #-}
+{-# LANGUAGE DerivingStrategies                        #-}
+{-# LANGUAGE DoAndIfThenElse                           #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving                #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# LANGUAGE LambdaCase                                #-}
+{-# LANGUAGE RecordWildCards                           #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas              #-}
 module Hasklean.Printer
-  ( Printer(..)
-  , PrinterConfig(..)
-  , PrinterState(..)
-
-    -- * Alias
-  , P
-
-    -- * Functions to use the printer
-  , runPrinter
-  , runPrinter_
-
-    -- ** Combinators
-  , comma
-  , dot
-  , getCurrentLine
-  , getCurrentLineLength
-  , newline
-  , parenthesize
-  , prefix
-  , putComment
-  , putMaybeLineComment
-  , putOutputable
-  , putCond
-  , putType
-  , putRdrName
-  , putText
-  , sep
-  , space
-  , spaces
-  , suffix
-  , pad
-
-    -- ** Advanced combinators
-  , withColumns
-  , modifyCurrentLine
-  , wrapping
-  ) where
+    ( Printer(..)
+    , PrinterConfig(..)
+    , PrinterState(..)
+      -- * Alias
+    , P
+      -- * Functions to use the printer
+    , runPrinter
+    , runPrinter_
+      -- ** Combinators
+    , comma
+    , dot
+    , getCurrentLine
+    , getCurrentLineLength
+    , newline
+    , pad
+    , parenthesize
+    , prefix
+    , putComment
+    , putCond
+    , putMaybeLineComment
+    , putOutputable
+    , putRdrName
+    , putText
+    , putType
+    , sep
+    , space
+    , spaces
+    , suffix
+      -- ** Advanced combinators
+    , modifyCurrentLine
+    , withColumns
+    , wrapping
+    ) where
 
 --------------------------------------------------------------------------------
-import           Prelude                         hiding (lines)
+import Prelude hiding                                  ( lines )
 
 --------------------------------------------------------------------------------
-import qualified GHC.Hs                          as GHC
-import           GHC.Hs.Extension                (GhcPs)
-import qualified GHC.Types.Basic                 as GHC
-import           GHC.Types.Name.Reader           (RdrName (..))
-import           GHC.Types.SrcLoc                (GenLocated (..))
-import qualified GHC.Types.SrcLoc                as GHC
-import qualified GHC.Unit.Module.Name            as GHC
-import           GHC.Utils.Outputable            (Outputable)
+import GHC.Hs qualified as GHC
+import GHC.Hs.Extension                                ( GhcPs )
+import GHC.Types.Basic qualified as GHC
+import GHC.Types.Name.Reader                           ( RdrName(..) )
+import GHC.Types.SrcLoc                                ( GenLocated(..) )
+import GHC.Types.SrcLoc qualified as GHC
+import GHC.Unit.Module.Name qualified as GHC
+import GHC.Utils.Outputable                            ( Outputable )
 
 --------------------------------------------------------------------------------
-import           Control.Monad                   (forM_, replicateM_)
-import           Control.Monad.Reader            (MonadReader, ReaderT (..),
-                                                  asks, local)
-import           Control.Monad.State             (MonadState, State, get, gets,
-                                                  modify, put, runState)
-import           Data.List                       (foldl')
+import Control.Monad                                   ( forM_, replicateM_ )
+import Control.Monad.Reader                            ( MonadReader, ReaderT(..), asks, local )
+import Control.Monad.State                             ( MonadState, State, get, gets, modify, put, runState )
+import Data.List                                       ( foldl' )
 
 --------------------------------------------------------------------------------
-import           Hasklean.GHC    (showOutputable)
-import           Hasklean.Module (Lines)
+import Hasklean.GHC                                    ( showOutputable )
+import Hasklean.Module                                 ( Lines )
 
 -- | Shorthand for 'Printer' monad
 type P = Printer

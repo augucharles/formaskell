@@ -6,7 +6,7 @@ module Hasklean.Verbose
 
 
 --------------------------------------------------------------------------------
-import           System.IO (hPutStrLn, stderr)
+import System.IO                                       ( hPutStrLn, stderr )
 
 
 --------------------------------------------------------------------------------

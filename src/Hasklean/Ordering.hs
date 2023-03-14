@@ -2,7 +2,8 @@
 -- | There are a number of steps that sort items: 'Imports' and 'ModuleHeader',
 -- and maybe more in the future.  This module provides consistent sorting
 -- utilities.
-{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# LANGUAGE LambdaCase                                #-}
 module Hasklean.Ordering
     ( compareImports
     , compareLIE
@@ -11,21 +12,22 @@ module Hasklean.Ordering
 
 
 --------------------------------------------------------------------------------
-import           Data.Char                    (isUpper, toLower)
-import           Data.Function                (on)
-import           Data.Ord                     (comparing)
+import Data.Char                                       ( isUpper, toLower )
+import Data.Function                                   ( on )
+import Data.Ord                                        ( comparing )
 import GHC.Hs
-    ( GhcPs,
-      LIE,
-      IE(IEModuleContents, IEVar, IEThingAbs, IEThingAll, IEThingWith),
-      ImportDecl(ideclName, ideclPkgQual),
-      IEWrappedName )
-import qualified GHC.Hs                       as GHC
-import           GHC.Types.Name.Reader        (RdrName)
-import           GHC.Types.SrcLoc             (unLoc)
-import           GHC.Utils.Outputable         (Outputable)
-import qualified GHC.Utils.Outputable         as GHC
-import           Hasklean.GHC (showOutputable)
+    ( GhcPs
+    , IE(IEModuleContents, IEThingAbs, IEThingAll, IEThingWith, IEVar)
+    , IEWrappedName
+    , ImportDecl(ideclName, ideclPkgQual)
+    , LIE
+    )
+import GHC.Hs qualified as GHC
+import GHC.Types.Name.Reader                           ( RdrName )
+import GHC.Types.SrcLoc                                ( unLoc )
+import GHC.Utils.Outputable                            ( Outputable )
+import GHC.Utils.Outputable qualified as GHC
+import Hasklean.GHC                                    ( showOutputable )
 
 
 --------------------------------------------------------------------------------

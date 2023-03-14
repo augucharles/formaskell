@@ -1,4 +1,5 @@
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP                                       #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
 --------------------------------------------------------------------------------
 module Main
     ( main
@@ -6,29 +7,29 @@ module Main
 
 
 --------------------------------------------------------------------------------
-import           Control.Monad            (forM_, unless, when)
-import qualified Data.ByteString.Char8    as BC8
-import qualified Options.Applicative      as OA
-import           System.Exit              (exitFailure)
-import qualified System.IO                as IO
-import qualified System.IO.Strict         as IO.Strict
+import Control.Monad                                   ( forM_, unless, when )
+import Data.ByteString.Char8 qualified as BC8
+import Options.Applicative qualified as OA
+import System.Exit                                     ( exitFailure )
+import System.IO qualified as IO
+import System.IO.Strict qualified as IO.Strict
 
 --------------------------------------------------------------------------------
 #if __GLASGOW_HASKELL__ < 808
-import           Data.Monoid              ((<>))
+import Data.Monoid                                     ( (<>) )
 #endif
 
 --------------------------------------------------------------------------------
 import Hasklean
-    ( makeVerbose,
-      Step(stepName),
-      defaultConfigBytes,
-      loadConfig,
-      Config(configExitCode, configNewline, configLanguageExtensions,
-             configSteps),
-      ExitCodeBehavior(ErrorOnFormatExitBehavior),
-      findHaskellFiles,
-      runSteps )
+    ( Config(configExitCode, configLanguageExtensions, configNewline, configSteps)
+    , ExitCodeBehavior(ErrorOnFormatExitBehavior)
+    , Step(stepName)
+    , defaultConfigBytes
+    , findHaskellFiles
+    , loadConfig
+    , makeVerbose
+    , runSteps
+    )
 
 
 --------------------------------------------------------------------------------

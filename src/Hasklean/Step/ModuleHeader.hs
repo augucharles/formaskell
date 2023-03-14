@@ -1,51 +1,53 @@
-{-# LANGUAGE BlockArguments  #-}
-{-# LANGUAGE LambdaCase      #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE BlockArguments                            #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# LANGUAGE LambdaCase                                #-}
+{-# LANGUAGE RecordWildCards                           #-}
 module Hasklean.Step.ModuleHeader
-  ( Config (..)
-  , BreakWhere (..)
-  , OpenBracket (..)
-  , defaultConfig
-  , step
-  ) where
+    ( BreakWhere(..)
+    , Config(..)
+    , OpenBracket(..)
+    , defaultConfig
+    , step
+    ) where
 
 
 --------------------------------------------------------------------------------
-import           Control.Applicative                   ((<|>))
-import           Control.Monad                         (guard, unless, when)
-import           Data.Foldable                         (forM_)
-import           Data.Maybe                            (fromMaybe, isJust,
-                                                        listToMaybe)
-import qualified GHC.Hs                                as GHC
-import qualified GHC.Types.SrcLoc                      as GHC
-import qualified GHC.Unit.Module.Name                  as GHC
+import Control.Applicative                             ( (<|>) )
+import Control.Monad                                   ( guard, unless, when )
+import Data.Foldable                                   ( forM_ )
+import Data.Maybe                                      ( fromMaybe, isJust, listToMaybe )
+import GHC.Hs qualified as GHC
+import GHC.Types.SrcLoc qualified as GHC
+import GHC.Unit.Module.Name qualified as GHC
 
 
 --------------------------------------------------------------------------------
 import Hasklean.Comments
-    ( CommentGroup(..),
-      commentGroups,
-      commentGroupHasComments,
-      commentGroupSort )
-import qualified Hasklean.Editor       as Editor
-import Hasklean.GHC ( showOutputable, epAnnComments )
-import Hasklean.Module ( Module, Lines )
-import Hasklean.Ordering ( compareLIE )
+    ( CommentGroup(..)
+    , commentGroupHasComments
+    , commentGroupSort
+    , commentGroups
+    )
+import Hasklean.Editor qualified as Editor
+import Hasklean.GHC                                    ( epAnnComments, showOutputable )
+import Hasklean.Module                                 ( Lines, Module )
+import Hasklean.Ordering                               ( compareLIE )
 import Hasklean.Printer
-    ( PrinterConfig(PrinterConfig),
-      P,
-      runPrinter_,
-      putText,
-      putComment,
-      putMaybeLineComment,
-      newline,
-      space,
-      spaces,
-      comma,
-      wrapping )
-import Hasklean.Step ( Step, makeStep )
-import qualified Hasklean.Step.Imports as Imports
-import           Hasklean.Util         (flagEnds)
+    ( P
+    , PrinterConfig(PrinterConfig)
+    , comma
+    , newline
+    , putComment
+    , putMaybeLineComment
+    , putText
+    , runPrinter_
+    , space
+    , spaces
+    , wrapping
+    )
+import Hasklean.Step                                   ( Step, makeStep )
+import Hasklean.Step.Imports qualified as Imports
+import Hasklean.Util                                   ( flagEnds )
 
 
 data Config = Config

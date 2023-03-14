@@ -1,28 +1,28 @@
-{-# LANGUAGE LambdaCase      #-}
-{-# LANGUAGE RecordWildCards #-}
-{-# OPTIONS_GHC -Wno-missing-fields #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# LANGUAGE LambdaCase                                #-}
+{-# LANGUAGE RecordWildCards                           #-}
+{-# OPTIONS_GHC -Wno-missing-fields                    #-}
 -- | Utility functions for working with the GHC AST
 module Hasklean.GHC
-  (
-   -- * Standard settings
-    baseDynFlags
-    -- * Outputable operators
-  , showOutputable
-
-    -- * Deconstruction
-  , epAnnComments
-  ) where
+    ( -- * Standard settings
+      baseDynFlags
+      -- * Outputable operators
+    , showOutputable
+      -- * Deconstruction
+    , epAnnComments
+    ) where
 
 --------------------------------------------------------------------------------
-import           Data.List                                           (sortOn)
-import qualified GHC.Driver.Ppr                                      as GHC (showPpr)
-import           GHC.Driver.Session                                  (defaultDynFlags)
-import qualified GHC.Driver.Session                                  as GHC
-import qualified GHC.Hs                                              as GHC
+import Data.List                                       ( sortOn )
+import GHC.Driver.Ppr qualified
+    as GHC                                             ( showPpr )
+import GHC.Driver.Session                              ( defaultDynFlags )
+import GHC.Driver.Session qualified as GHC
+import GHC.Hs qualified as GHC
 
-import qualified GHC.Types.SrcLoc                                    as GHC
-import qualified GHC.Utils.Outputable                                as GHC
-import qualified Language.Haskell.GhclibParserEx.GHC.Settings.Config as GHCEx
+import GHC.Types.SrcLoc qualified as GHC
+import GHC.Utils.Outputable qualified as GHC
+import Language.Haskell.GhclibParserEx.GHC.Settings.Config qualified as GHCEx
 
 baseDynFlags :: GHC.DynFlags
 baseDynFlags = defaultDynFlags GHCEx.fakeSettings GHCEx.fakeLlvmConfig

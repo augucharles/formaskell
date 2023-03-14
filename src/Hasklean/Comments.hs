@@ -1,28 +1,33 @@
 --------------------------------------------------------------------------------
 -- | Utilities for assocgating comments with things in a list.
-{-# LANGUAGE RecordWildCards     #-}
-{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# LANGUAGE RecordWildCards                           #-}
+{-# LANGUAGE ScopedTypeVariables                       #-}
 module Hasklean.Comments
-    ( CommentGroup (..)
-    , commentGroups
+    ( CommentGroup(..)
     , commentGroupHasComments
     , commentGroupSort
+    , commentGroups
     ) where
 
 
 --------------------------------------------------------------------------------
-import           Data.Function                  (on)
-import           Data.List                      (sortBy, sortOn)
-import           Data.Maybe                     (isNothing, maybeToList)
-import qualified GHC.Hs                         as GHC
-import qualified GHC.Types.SrcLoc               as GHC
-import qualified GHC.Utils.Outputable           as GHC
+import Data.Function                                   ( on )
+import Data.List                                       ( sortBy, sortOn )
+import Data.Maybe                                      ( isNothing, maybeToList )
+import GHC.Hs qualified as GHC
+import GHC.Types.SrcLoc qualified as GHC
+import GHC.Utils.Outputable qualified as GHC
 
 
 --------------------------------------------------------------------------------
 import Hasklean.Block
-    ( LineBlock, Block(blockStart), realSrcSpanToLineBlock, adjacent )
-import Hasklean.GHC ( showOutputable )
+    ( Block(blockStart)
+    , LineBlock
+    , adjacent
+    , realSrcSpanToLineBlock
+    )
+import Hasklean.GHC                                    ( showOutputable )
 
 
 --------------------------------------------------------------------------------

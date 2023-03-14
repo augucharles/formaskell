@@ -1,78 +1,78 @@
-{-# LANGUAGE BlockArguments    #-}
-{-# LANGUAGE DoAndIfThenElse   #-}
-{-# LANGUAGE FlexibleContexts  #-}
-{-# LANGUAGE LambdaCase        #-}
-{-# LANGUAGE NamedFieldPuns    #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Use record patterns" #-}
+{-# HLINT ignore "Use record patterns"                 #-}
+{-# LANGUAGE BlockArguments                            #-}
+{-# LANGUAGE DoAndIfThenElse                           #-}
+{-# LANGUAGE FlexibleContexts                          #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# LANGUAGE LambdaCase                                #-}
+{-# LANGUAGE NamedFieldPuns                            #-}
+{-# LANGUAGE OverloadedStrings                         #-}
+{-# LANGUAGE RecordWildCards                           #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas              #-}
 module Hasklean.Step.Imports
-  ( Options (..)
-  , defaultOptions
-  , EmptyListAlign (..)
-  , GroupRule (..)
-  , step
-
-  , printImport
-
-  , parsePattern
-  , unsafeParsePattern
-  ) where
+    ( EmptyListAlign(..)
+    , GroupRule(..)
+    , Options(..)
+    , defaultOptions
+    , parsePattern
+    , printImport
+    , step
+    , unsafeParsePattern
+    ) where
 
 --------------------------------------------------------------------------------
-import           Control.Monad                     (forM_, when)
-import qualified Data.Aeson                        as A
-import           Data.Foldable                     (toList)
-import           Data.Function                     (on, (&))
-import           Data.Functor                      (($>))
-import           Data.List                         (sortBy)
-import           Data.List.NonEmpty                (NonEmpty (..))
-import qualified Data.List.NonEmpty                as NonEmpty
-import qualified Data.Map                          as Map
-import           Data.Maybe                        (fromMaybe)
-import qualified Data.Set                          as Set
-import qualified Data.Text                         as T
-import qualified GHC.Data.FastString               as GHC
-import qualified GHC.Hs                            as GHC
-import qualified GHC.Types.Name.Reader             as GHC
-import qualified GHC.Types.PkgQual                 as GHC
-import qualified GHC.Types.SourceText              as GHC
-import qualified GHC.Types.SrcLoc                  as GHC
-import qualified GHC.Unit.Module.Name              as GHC
-import qualified GHC.Unit.Types                    as GHC
-import qualified Text.Regex.TDFA                   as Regex
-import           Text.Regex.TDFA                   (Regex)
-import           Text.Regex.TDFA.ReadRegex         (parseRegex)
+import Control.Monad                                   ( forM_, when )
+import Data.Aeson qualified as A
+import Data.Foldable                                   ( toList )
+import Data.Function                                   ( on, (&) )
+import Data.Functor                                    ( ($>) )
+import Data.List                                       ( sortBy )
+import Data.List.NonEmpty                              ( NonEmpty(..) )
+import Data.List.NonEmpty qualified as NonEmpty
+import Data.Map qualified as Map
+import Data.Maybe                                      ( fromMaybe )
+import Data.Set qualified as Set
+import Data.Text qualified as T
+import GHC.Data.FastString qualified as GHC
+import GHC.Hs qualified as GHC
+import GHC.Types.Name.Reader qualified as GHC
+import GHC.Types.PkgQual qualified as GHC
+import GHC.Types.SourceText qualified as GHC
+import GHC.Types.SrcLoc qualified as GHC
+import GHC.Unit.Module.Name qualified as GHC
+import GHC.Unit.Types qualified as GHC
+import Text.Regex.TDFA                                 ( Regex )
+import Text.Regex.TDFA qualified as Regex
+import Text.Regex.TDFA.ReadRegex                       ( parseRegex )
 
 --------------------------------------------------------------------------------
-import Hasklean.Block ( Block(Block) )
-import qualified Hasklean.Editor   as Editor
+import Hasklean.Block                                  ( Block(Block) )
+import Hasklean.Editor qualified as Editor
 import Hasklean.Module
-    ( canMergeImport,
-      importModuleName,
-      mergeModuleImport,
-      moduleImportGroups,
-      Lines,
-      Module )
-import Hasklean.Ordering
-    ( compareImports, compareLIE, compareWrappedName )
+    ( Lines
+    , Module
+    , canMergeImport
+    , importModuleName
+    , mergeModuleImport
+    , moduleImportGroups
+    )
+import Hasklean.Ordering                               ( compareImports, compareLIE, compareWrappedName )
 import Hasklean.Printer
-    ( comma,
-      getCurrentLine,
-      modifyCurrentLine,
-      newline,
-      parenthesize,
-      putRdrName,
-      putText,
-      runPrinter_,
-      sep,
-      space,
-      wrapping,
-      P,
-      PrinterConfig(PrinterConfig) )
-import Hasklean.Step ( makeStep, Step )
-import Hasklean.Util ( flagEnds, trimRight )
+    ( P
+    , PrinterConfig(PrinterConfig)
+    , comma
+    , getCurrentLine
+    , modifyCurrentLine
+    , newline
+    , parenthesize
+    , putRdrName
+    , putText
+    , runPrinter_
+    , sep
+    , space
+    , wrapping
+    )
+import Hasklean.Step                                   ( Step, makeStep )
+import Hasklean.Util                                   ( flagEnds, trimRight )
 
 --------------------------------------------------------------------------------
 data Options = Options

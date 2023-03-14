@@ -1,34 +1,32 @@
 --------------------------------------------------------------------------------
+{-# LANGUAGE ImportQualifiedPost                       #-}
 module Hasklean.Parse
-  ( parseModule
-  ) where
+    ( parseModule
+    ) where
 
 
 --------------------------------------------------------------------------------
-import           Data.Char                                          (toLower)
-import           Data.List                                          (foldl',
-                                                                     stripPrefix)
-import           Data.Maybe                                         (catMaybes,
-                                                                     fromMaybe,
-                                                                     listToMaybe,
-                                                                     mapMaybe)
-import           Data.Traversable                                   (for)
-import qualified GHC.Data.StringBuffer                              as GHC
-import qualified GHC.Driver.Config.Parser                           as GHC
-import GHC.Driver.Ppr as GHC ( showSDoc )
-import qualified GHC.Driver.Session                                 as GHC
-import qualified GHC.LanguageExtensions.Type                        as LangExt
-import qualified GHC.Parser.Header                                  as GHC
-import qualified GHC.Parser.Lexer                                   as GHC
-import qualified GHC.Types.SrcLoc                                   as GHC
-import qualified GHC.Utils.Error                                    as GHC
-import qualified Language.Haskell.GhclibParserEx.GHC.Driver.Session as GHCEx
-import qualified Language.Haskell.GhclibParserEx.GHC.Parser         as GHCEx
+import Data.Char                                       ( toLower )
+import Data.List                                       ( foldl', stripPrefix )
+import Data.Maybe                                      ( catMaybes, fromMaybe, listToMaybe, mapMaybe )
+import Data.Traversable                                ( for )
+import GHC.Data.StringBuffer qualified as GHC
+import GHC.Driver.Config.Parser qualified as GHC
+import GHC.Driver.Ppr
+    as GHC                                             ( showSDoc )
+import GHC.Driver.Session qualified as GHC
+import GHC.LanguageExtensions.Type qualified as LangExt
+import GHC.Parser.Header qualified as GHC
+import GHC.Parser.Lexer qualified as GHC
+import GHC.Types.SrcLoc qualified as GHC
+import GHC.Utils.Error qualified as GHC
+import Language.Haskell.GhclibParserEx.GHC.Driver.Session qualified as GHCEx
+import Language.Haskell.GhclibParserEx.GHC.Parser qualified as GHCEx
 
 
 --------------------------------------------------------------------------------
-import Hasklean.GHC ( baseDynFlags )
-import Hasklean.Module ( Module )
+import Hasklean.GHC                                    ( baseDynFlags )
+import Hasklean.Module                                 ( Module )
 
 
 --------------------------------------------------------------------------------

@@ -1,24 +1,25 @@
 --------------------------------------------------------------------------------
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Redundant if" #-}
+{-# HLINT ignore "Redundant if"                        #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas              #-}
 module Hasklean.Block
-    ( Block (..)
+    ( Block(..)
     , LineBlock
-    , realSrcSpanToLineBlock
     , SpanBlock
-    , blockLength
-    , moveBlock
     , adjacent
+    , blockLength
+    , groupAdjacent
     , merge
     , mergeAdjacent
+    , moveBlock
     , overlapping
-    , groupAdjacent
+    , realSrcSpanToLineBlock
     ) where
 
 
 --------------------------------------------------------------------------------
-import qualified Data.IntSet      as IS
-import qualified GHC.Types.SrcLoc as GHC
+import Data.IntSet qualified as IS
+import GHC.Types.SrcLoc qualified as GHC
 
 
 --------------------------------------------------------------------------------

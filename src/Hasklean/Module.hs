@@ -1,49 +1,45 @@
-{-# LANGUAGE BlockArguments             #-}
-{-# LANGUAGE DerivingStrategies         #-}
-{-# LANGUAGE OverloadedStrings          #-}
-{-# LANGUAGE StandaloneDeriving         #-}
-{-# OPTIONS_GHC -Wno-orphans #-}
+{-# LANGUAGE BlockArguments                            #-}
+{-# LANGUAGE DerivingStrategies                        #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# LANGUAGE OverloadedStrings                         #-}
+{-# LANGUAGE StandaloneDeriving                        #-}
+{-# OPTIONS_GHC -Wno-orphans                           #-}
 module Hasklean.Module
-  ( -- * Data types
-    Module
-  , Comments (..)
-  , Lines
-
-    -- * Getters
-  , moduleImportGroups
-  , queryModule
-
-    -- * Imports
-  , canMergeImport
-  , mergeModuleImport
-  , importModuleName
-
-    -- * Pragmas
-  , moduleLanguagePragmas
-  , unsafeModuleAllPragmas
-  ) where
+    ( -- * Data types
+      Comments(..)
+    , Lines
+    , Module
+      -- * Getters
+    , moduleImportGroups
+    , queryModule
+      -- * Imports
+    , canMergeImport
+    , importModuleName
+    , mergeModuleImport
+      -- * Pragmas
+    , moduleLanguagePragmas
+    , unsafeModuleAllPragmas
+    ) where
 
 
 --------------------------------------------------------------------------------
-import           Data.Char                    (toLower)
-import           Data.Function                (on)
-import           Data.Generics                (Typeable, everything, mkQ)
-import qualified Data.List                    as L
-import           Data.List.NonEmpty           (NonEmpty (..))
-import           Data.Maybe                   (fromMaybe, mapMaybe)
-import           GHC.Hs                       (ImportDecl (..),
-                                               ImportDeclQualifiedStyle (..))
-import qualified GHC.Hs                       as GHC
-import           GHC.Hs.Extension             (GhcPs)
-import qualified GHC.Types.PkgQual            as GHC
-import           GHC.Types.SrcLoc             (GenLocated (..),
-                                               RealSrcSpan (..), unLoc)
-import qualified GHC.Types.SrcLoc             as GHC
-import qualified GHC.Unit.Module.Name         as GHC
+import Data.Char                                       ( toLower )
+import Data.Function                                   ( on )
+import Data.Generics                                   ( Typeable, everything, mkQ )
+import Data.List qualified as L
+import Data.List.NonEmpty                              ( NonEmpty(..) )
+import Data.Maybe                                      ( fromMaybe, mapMaybe )
+import GHC.Hs                                          ( ImportDecl(..), ImportDeclQualifiedStyle(..) )
+import GHC.Hs qualified as GHC
+import GHC.Hs.Extension                                ( GhcPs )
+import GHC.Types.PkgQual qualified as GHC
+import GHC.Types.SrcLoc                                ( GenLocated(..), RealSrcSpan(..), unLoc )
+import GHC.Types.SrcLoc qualified as GHC
+import GHC.Unit.Module.Name qualified as GHC
 
 
 --------------------------------------------------------------------------------
-import Hasklean.GHC ( showOutputable, epAnnComments )
+import Hasklean.GHC                                    ( epAnnComments, showOutputable )
 
 
 --------------------------------------------------------------------------------

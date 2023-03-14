@@ -1,46 +1,46 @@
 --------------------------------------------------------------------------------
-{-# LANGUAGE BlockArguments    #-}
-{-# LANGUAGE LambdaCase        #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TemplateHaskell   #-}
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Redundant <$>" #-}
+{-# HLINT ignore "Redundant <$>"                       #-}
+{-# LANGUAGE BlockArguments                            #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# LANGUAGE LambdaCase                                #-}
+{-# LANGUAGE OverloadedStrings                         #-}
+{-# LANGUAGE TemplateHaskell                           #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas              #-}
 module Hasklean.Config
-    ( Extensions
-    , Config (..)
-    , ExitCodeBehavior (..)
+    ( Config(..)
+    , ExitCodeBehavior(..)
+    , Extensions
     , defaultConfigBytes
     , loadConfig
     ) where
 
 
 --------------------------------------------------------------------------------
-import           Control.Monad                                    (forM, mzero)
-import           Data.Aeson                                       (FromJSON (..))
-import qualified Data.Aeson                                       as A
-import qualified Data.Aeson.Types                                 as A
-import qualified Data.ByteString                                  as B
-import           Data.ByteString.Lazy                             (fromStrict)
-import qualified Data.FileEmbed                                   as FileEmbed
-import           Data.List                                        (intercalate,
-                                                                   nub)
-import           Data.Map                                         (Map)
-import qualified Data.Map                                         as M
-import           Data.Maybe                                       (fromMaybe)
-import           Data.YAML                                        (prettyPosWithSource)
-import           Data.YAML.Aeson                                  (decode1Strict)
-import qualified System.IO                                        as IO (Newline (..),
-                                                                         nativeNewline)
+import Control.Monad                                   ( forM, mzero )
+import Data.Aeson                                      ( FromJSON(..) )
+import Data.Aeson qualified as A
+import Data.Aeson.Types qualified as A
+import Data.ByteString qualified as B
+import Data.ByteString.Lazy                            ( fromStrict )
+import Data.FileEmbed qualified as FileEmbed
+import Data.List                                       ( intercalate, nub )
+import Data.Map                                        ( Map )
+import Data.Map qualified as M
+import Data.Maybe                                      ( fromMaybe )
+import Data.YAML                                       ( prettyPosWithSource )
+import Data.YAML.Aeson                                 ( decode1Strict )
+import System.IO qualified
+    as IO                                              ( Newline(..), nativeNewline )
 
 
 --------------------------------------------------------------------------------
-import Hasklean.Step ( Step )
-import qualified Hasklean.Step.Imports            as Imports
-import qualified Hasklean.Step.LanguagePragmas    as LanguagePragmas
-import qualified Hasklean.Step.ModuleHeader       as ModuleHeader
-import qualified Hasklean.Step.TrailingWhitespace as TrailingWhitespace
-import Hasklean.Verbose ( Verbose )
-import Data.Char (toLower)
+import Data.Char                                       ( toLower )
+import Hasklean.Step                                   ( Step )
+import Hasklean.Step.Imports qualified as Imports
+import Hasklean.Step.LanguagePragmas qualified as LanguagePragmas
+import Hasklean.Step.ModuleHeader qualified as ModuleHeader
+import Hasklean.Step.TrailingWhitespace qualified as TrailingWhitespace
+import Hasklean.Verbose                                ( Verbose )
 
 
 --------------------------------------------------------------------------------

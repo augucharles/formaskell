@@ -1,49 +1,46 @@
 --------------------------------------------------------------------------------
-{-# LANGUAGE LambdaCase    #-}
-{-# LANGUAGE PatternGuards #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# LANGUAGE LambdaCase                                #-}
+{-# LANGUAGE PatternGuards                             #-}
 module Hasklean.Util
-    ( indent
+    ( everything
+    , indent
     , padRight
-    , everything
     , trimLeft
     , trimRight
     , wrap
-    , wrapRest
     , wrapMaybe
+    , wrapRest
     , wrapRestMaybe
-
-    -- * Extra list functions
-    , withHead
-    , withInit
-    , withTail
-    , withLast
+      -- * Extra list functions
     , flagEnds
-
+    , getGuards
+    , rhsBody
     , traceOutputable
     , traceOutputableM
-
     , unguardedRhsBody
-    , rhsBody
-
-    , getGuards
+    , withHead
+    , withInit
+    , withLast
+    , withTail
     ) where
 
 
 --------------------------------------------------------------------------------
-import           Data.Char                     (isSpace)
-import           Data.Data                     (Data)
-import qualified Data.Generics                 as G
-import           Data.Maybe                    (maybeToList)
-import           Data.Typeable                 (cast)
-import           Debug.Trace                   (trace)
-import qualified GHC.Hs                        as Hs
-import qualified GHC.Types.SrcLoc              as GHC
-import qualified GHC.Utils.Outputable          as GHC
+import Data.Char                                       ( isSpace )
+import Data.Data                                       ( Data )
+import Data.Generics qualified as G
+import Data.Maybe                                      ( maybeToList )
+import Data.Typeable                                   ( cast )
+import Debug.Trace                                     ( trace )
+import GHC.Hs qualified as Hs
+import GHC.Types.SrcLoc qualified as GHC
+import GHC.Utils.Outputable qualified as GHC
 
 
 --------------------------------------------------------------------------------
-import           Hasklean.GHC  (showOutputable)
-import Hasklean.Module ( Lines )
+import Hasklean.GHC                                    ( showOutputable )
+import Hasklean.Module                                 ( Lines )
 
 
 --------------------------------------------------------------------------------

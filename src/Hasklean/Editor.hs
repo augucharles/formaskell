@@ -1,6 +1,7 @@
-{-# LANGUAGE LambdaCase #-}
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Use record patterns" #-}
+{-# HLINT ignore "Use record patterns"                 #-}
+{-# LANGUAGE ImportQualifiedPost                       #-}
+{-# LANGUAGE LambdaCase                                #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas              #-}
 
 --------------------------------------------------------------------------------
 -- | This module provides you with a line-based editor. It's main feature is
@@ -11,27 +12,25 @@
 -- when this is evaluated, we take into account that 4th line will become the
 -- 3rd line before it needs changing.
 module Hasklean.Editor
-    ( module Hasklean.Block
-
-    , Edits
+    ( Edits
+    , module Hasklean.Block
     , apply
-
-    , replace
-    , replaceRealSrcSpan
     , changeLine
     , changeLines
     , insertLines
+    , replace
+    , replaceRealSrcSpan
     ) where
 
 
 --------------------------------------------------------------------------------
-import qualified Data.Map                       as M
-import           Data.Maybe                     (fromMaybe)
-import qualified GHC.Types.SrcLoc               as GHC
+import Data.Map qualified as M
+import Data.Maybe                                      ( fromMaybe )
+import GHC.Types.SrcLoc qualified as GHC
 
 
 --------------------------------------------------------------------------------
-import           Hasklean.Block
+import Hasklean.Block
 
 
 --------------------------------------------------------------------------------
