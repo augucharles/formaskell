@@ -18,15 +18,21 @@ It is therefore not as flexible as stylish-haskell and does not aim to be.
 nhenin@ubuntu ~/d/hasklean (main)> nix develop
 ```
 
-4) Install for current user:
+4) Build the project
+
+```shell
+[nix-shell:~/dev/hasklean]$ cabal build all
+```
+
+5) Install for current user:
 
 ```shell
 [nix-shell:~/dev/hasklean]$ install -D $(cabal list-bin hasklean) $HOME/.local/bin/hasklean
 ```
 
-5) Open a new terminal or source your .profile file to have the executable in your PATH.
+6) Open a new terminal or source your .profile file to have the executable in your PATH.
 
-6) Apply formatting on some file:
+7) Apply formatting on some file:
 
 ```shell
 nhenin@ubuntu ~/d/hasklean (main)> hasklean -- ./test/Test.hs
@@ -53,7 +59,7 @@ For now, we only have guidelines for module header, that is `pragma` list, `modu
 {-# LANGUAGE RecordWildCards                #-}
 {-# LANGUAGE TypeApplications               #-}
 --                                          ^
-module Hasklean.Step.ModuleHeader --      |
+module Hasklean.Step.ModuleHeader   --      |
   ( Config (..)                     --      |
   , BreakWhere (..)                 --      |
   , OpenBracket (..)                --      | end of pragma and start of module list are aligned
