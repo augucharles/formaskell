@@ -39,6 +39,7 @@ import Hasklean.Step                                   ( Step )
 import Hasklean.Step.Imports qualified as Imports
 import Hasklean.Step.LanguagePragmas qualified as LanguagePragmas
 import Hasklean.Step.ModuleHeader qualified as ModuleHeader
+import Hasklean.Step.Tabs qualified as Tabs
 import Hasklean.Step.TrailingWhitespace qualified as TrailingWhitespace
 import Hasklean.Verbose                                ( Verbose )
 
@@ -129,6 +130,7 @@ catalog = M.fromList
     [ ("imports",             parseImports)
     , ("module_header",       parseModuleHeader)
     , ("language_pragmas",    parseLanguagePragmas)
+    , ("tabs",                parseTabs)
     , ("trailing_whitespace", parseTrailingWhitespace)
     ]
 
@@ -230,3 +232,9 @@ mkLanguage o = do
 --------------------------------------------------------------------------------
 parseTrailingWhitespace :: Config -> A.Object -> A.Parser Step
 parseTrailingWhitespace _ _ = return TrailingWhitespace.step
+
+
+--------------------------------------------------------------------------------
+parseTabs :: Config -> A.Object -> A.Parser Step
+parseTabs _ o = Tabs.step
+    <$> o A..:? "spaces" A..!= 8

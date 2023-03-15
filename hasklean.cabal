@@ -41,6 +41,7 @@ library
     Hasklean.Step.Imports
     Hasklean.Step.LanguagePragmas
     Hasklean.Step.ModuleHeader
+    Hasklean.Step.Tabs
     Hasklean.Step.TrailingWhitespace
     Hasklean.Util
     Hasklean.Verbose
