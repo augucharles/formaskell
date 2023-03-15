@@ -44,6 +44,7 @@ nhenin@ubuntu ~/d/hasklean (main)> hasklean -- ./test/Test.hs
 - Groups and wraps `{-# LANGUAGE #-}` pragmas, can remove (some) redundant
   pragmas
 - Aligns and sorts `module` statement
+- Replaces tabs by eight spaces (turned off by default)
 - Removes trailing whitespace
 
 ## Smart-Chain Haskell team style
